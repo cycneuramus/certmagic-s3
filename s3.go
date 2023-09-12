@@ -147,7 +147,6 @@ func (s3 *S3) Store(ctx context.Context, key string, value []byte) error {
 }
 
 func (s3 *S3) Load(ctx context.Context, key string) ([]byte, error) {
-	s3.Logger.Info(fmt.Sprintf("Load from disk: %v", key))
 	buf, err := os.ReadFile(key)
 	if err != nil {
 		s3.Logger.Info(fmt.Sprintf("Error: %v", err))
@@ -176,6 +175,8 @@ func (s3 *S3) Load(ctx context.Context, key string) ([]byte, error) {
 		}
 		return buf, nil
 	}
+
+	s3.Logger.Info(fmt.Sprintf("Load from disk: %v", key))
 	return buf, nil
 }
 
